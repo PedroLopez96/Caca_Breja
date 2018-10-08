@@ -39,7 +39,6 @@ public class playerScript : MonoBehaviour {
 		
 		highMode = true;
 		beerQty = 0;
-		GetComponent<AudioSource> ().enabled = false;
         GameObject.Find("drunkMode_TEXT").GetComponent<Animator>().SetBool("gotDrunk", true);
 		yield return new WaitForSecondsRealtime(7.5f);
 		highMode = false;

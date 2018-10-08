@@ -8,10 +8,12 @@ public class collisionEnter : MonoBehaviour {
 	public AudioClip itemPick, coinPick, hitSound;
 	public bgSpawn myBgSpawn;
     public hudBeers _hudBeers;
+    public playSound _playSound;
 
     public void Start()
     {
         _hudBeers = GameObject.Find("Screen").GetComponentInChildren<hudBeers>();
+        _playSound = GameObject.Find("Screen").GetComponent<playSound>();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -19,7 +21,10 @@ public class collisionEnter : MonoBehaviour {
 		if (collision.gameObject.tag == "Enemy") 
 		{
             if (playerScript.highMode)
+            {
                 collision.GetComponent<carGoDown>().goDown = false;
+                _playSound._playSound("Impact");
+            }
             else
             {
                 if (playerScript.distanceWalked > playerScript.highScore)
@@ -58,7 +63,7 @@ public class collisionEnter : MonoBehaviour {
 
 		if (collision.gameObject.tag == "Beer") 
 		{
-			GetComponent<AudioSource> ().PlayOneShot (itemPick);
+            _playSound._playSound("openCap");
 			Destroy (collision.gameObject);
             _hudBeers.addBeer();
 		}

@@ -9,9 +9,11 @@ public class highMode : MonoBehaviour {
 	SpriteRenderer panel;
 	public Sprite panelSimple, panelItens;
 	public AudioClip running, high;
+    public playSound _playSound;
 
 	void Start()
 	{
+        _playSound = GameObject.Find("Screen").GetComponent<playSound>();
 		panel = topPanel.GetComponent<SpriteRenderer> ();
 		isShaking = false;
 	}
@@ -37,8 +39,10 @@ public class highMode : MonoBehaviour {
 
 	private IEnumerator startShake ()
 	{
-		yield return new WaitForSecondsRealtime (0);
-		Camera.main.GetComponent<Animator> ().SetBool ("gotDrunk", true);
+        
+        yield return new WaitForSecondsRealtime (0);
+        _playSound._playSound("burp");
+        Camera.main.GetComponent<Animator> ().SetBool ("gotDrunk", true);
 	}
 
 	private IEnumerator stopShake ()
